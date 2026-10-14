@@ -3,12 +3,12 @@
     x:Class="UltimaMilla.Repartidor.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:UltimaMilla.Repartidor"
+    xmlns:local="clr-namespace:UltimaMilla.Repartidor.Views"
     Title="UltimaMilla.Repartidor">
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate local:JornadaPage}"
+        Route="JornadaPage" />
 
 </Shell>
