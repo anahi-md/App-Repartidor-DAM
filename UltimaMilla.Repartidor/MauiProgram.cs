@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using UltimaMilla.Repartidor.Views;
+using UltimaMilla.Repartidor.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace UltimaMilla.Repartidor
 {
@@ -15,8 +17,12 @@ namespace UltimaMilla.Repartidor
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddTransient<JornadaPage>();
+            builder.Services.AddTransient<JornadaViewModel>();
+            builder.Services.AddTransient<AppShell>();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

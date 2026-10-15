@@ -28,7 +28,7 @@ public partial class JornadaViewModel : ObservableObject
         CargarParadas(); // Recarga las paradas de ejemplo
         MensajeEstado = "¡Datos actualizados correctamente!";
     
-        await Task.Delay(3000); // Espera 3 segundos antes de limpiar el mensaje
+        await Task.Delay(2500); // Espera 2.5 segundos antes de limpiar el mensaje
         MensajeEstado = string.Empty; // Limpia el mensaje de estado
     }
 

@@ -5,10 +5,10 @@ namespace UltimaMilla.Repartidor.Views;
 
 public partial class JornadaPage : ContentPage
 {
-    public JornadaPage()
+    public JornadaPage(JornadaViewModel viewModel)
 	{
 		InitializeComponent();
-        BindingContext = new JornadaViewModel();
+        BindingContext = viewModel;
         FormateaFecha();
     }
     private void FormateaFecha()
