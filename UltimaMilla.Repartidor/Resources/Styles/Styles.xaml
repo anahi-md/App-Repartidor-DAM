@@ -3,6 +3,31 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <!-- Estilo para el nombre del cliente en cada parada -->
+    <Style x:Key="ClienteLabel" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <!-- Estilo para textos tarjetas (direccion, fecha) -->
+    <Style x:Key="TextoSecundario" TargetType="Label">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray100}}" />
+    </Style>
+    
+    <!-- Estilo para textos tarjetas (direccion, fecha) -->
+    <Style x:Key="TextoLists" TargetType="Label">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray200}}" />
+    </Style>
+
+    <Style x:Key="BorderPrincipal" TargetType="Border">
+        <Setter Property="Stroke" Value="#1C7293"/>
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="StrokeShape" Value="RoundRectangle 12"/>
+        <Setter Property="Padding" Value="16"/>
+    </Style> 
+    
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>
@@ -25,6 +50,7 @@
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+        <Setter Property="VerticalOptions" Value="Center"/>
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="BorderWidth" Value="0"/>
@@ -419,27 +445,16 @@
     </Style>
 
     <Style TargetType="NavigationPage">
-        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}" />
+        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource OffBlack}}" />
         <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource White}}" />
         <Setter Property="IconColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource White}}" />
     </Style>
 
     <Style TargetType="TabbedPage">
-        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}" />
+        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray950}}" />
         <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}" />
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
 
-    <!-- Estilo para el nombre del cliente en cada parada -->
-    <Style x:Key="ClienteLabel" TargetType="Label">
-        <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="FontSize" Value="16" />
-    </Style>
-
-    <!-- Estilo para textos secundarios (direccion, fecha) -->
-    <Style x:Key="TextoSecundario" TargetType="Label">
-        <Setter Property="FontSize" Value="13" />
-        <Setter Property="TextColor" Value="Gray" />
-    </Style>
 </ResourceDictionary>
