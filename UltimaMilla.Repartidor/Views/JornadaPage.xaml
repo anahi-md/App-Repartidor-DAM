@@ -29,6 +29,7 @@
 
         <VerticalStackLayout Grid.Column="1" Spacing="3">
             <Button Text="Actualizar" Command="{Binding RefrescaParadasCommand}" Padding="10,4" HorizontalOptions="End"/>
+            <ActivityIndicator IsRunning="{Binding EstaCargando}" IsVisible="{Binding EstaCargando}" HorizontalOptions="End"/>
             <Label Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding MensajeEstado}"
                 Style="{StaticResource TextoSecundario}" FontSize="12"
                 HorizontalOptions="End" VerticalOptions="Center"/>

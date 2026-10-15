@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 namespace UltimaMilla.Repartidor;
 
 
@@ -41,11 +42,14 @@ public partial class SplashPage : ContentPage
         // El reemplazo vigente es Windows[0].Page. 
 
         if (Application.Current is not null && Application.Current.Windows.Count > 0)
-
         {
+            var servicios = IPlatformApplication.Current?.Services;
 
-            Application.Current.Windows[0].Page = new AppShell();
-
+            if (servicios is not null)
+            {
+                var appShell = servicios.GetRequiredService<AppShell>();
+                Application.Current.Windows[0].Page = appShell;
+            }
         }
 
     }
