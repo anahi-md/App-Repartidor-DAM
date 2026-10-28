@@ -6,7 +6,7 @@ namespace UltimaMilla.Repartidor
         public AppShell(JornadaPage jornadaPage)
         {
             InitializeComponent();
-
+            Routing.RegisterRoute(nameof(ParadaDetallePage), typeof(ParadaDetallePage));
             JornadaShellContent.Content = jornadaPage;
         }
     }

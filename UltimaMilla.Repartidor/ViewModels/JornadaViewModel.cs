@@ -2,11 +2,13 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using UltimaMilla.Repartidor.Models;
+using UltimaMilla.Repartidor.Services;
 
 namespace UltimaMilla.Repartidor.ViewModels;
 
 public partial class JornadaViewModel : ObservableObject
 {
+    private readonly ParadasDatabase _paradasDatabase;
     [ObservableProperty] private string _saludo = string.Empty;
 
     [ObservableProperty] private int _totalEntregas = 0;
@@ -14,67 +16,98 @@ public partial class JornadaViewModel : ObservableObject
     [ObservableProperty] private int _entregasCompletadas = 0;
 
     [ObservableProperty] private string _mensajeEstado = string.Empty;
+    [ObservableProperty] private Parada? _paradaSeleccionada;
+    [ObservableProperty] private bool _isRefrescando = false;
     public ObservableCollection<Parada> Paradas { get; set; } = new();
-    public JornadaViewModel()
+    public JornadaViewModel(ParadasDatabase paradasDatabase)
     {
+        _paradasDatabase = paradasDatabase;
         FormarSaludo();
-        CargarParadas();
     }
     [RelayCommand]
 
     private async Task RefrescaParadas()
     {
-        await Task.Delay(1000); // Simula una operación de actualización
-        CargarParadas(); // Recarga las paradas de ejemplo
-        MensajeEstado = "¡Datos actualizados correctamente!";
-    
-        await Task.Delay(2500); // Espera 2.5 segundos antes de limpiar el mensaje
-        MensajeEstado = string.Empty; // Limpia el mensaje de estado
+        try
+        {
+            IsRefrescando = true;
+#if DEBUG
+            await Task.Delay(1000); // Simula una espera de 1 segundos
+#endif
+            var paradas = await _paradasDatabase.GetParadasAsync();
+
+            if (paradas.Count == 0)
+            {
+                MensajeEstado = "No hay paradas disponibles.";
+                await Task.Delay(2000); // Espera 2 segundos antes de limpiar el mensaje
+                await InventaParadas();
+                paradas = await _paradasDatabase.GetParadasAsync();
+            }
+
+            Paradas.Clear();
+            foreach (var parada in paradas)
+                Paradas.Add(parada);
+
+            TotalEntregas = Paradas.Count;
+            EntregasCompletadas = Paradas.Count(p => p.Estado == "Entregada");
+            MensajeEstado = "!Datos actualizados correctamente¡";
+        }
+        catch (Exception ex)
+        {
+            MensajeEstado = $"Error al actualizar los datos: {ex.Message}";
+        }
+        finally
+        {
+            IsRefrescando = false;
+
+        }
+
+        await Task.Delay(2000); // Espera 2 segundos antes de limpiar el mensaje
+        MensajeEstado = string.Empty;
     }
 
-    private void CargarParadas()
+    private async Task InventaParadas()
     {
-        Paradas.Clear();
-        Paradas.Add(new Parada
+        await _paradasDatabase.SaveParadaAsync(new Parada
         {
             Numero = 1,
             Cliente = "Farmacia San Juan",
             Direccion = "Av. Hidalgo 123",
-            Estado = "Pendiente"
+            Estado = "Pendiente",
+            RepartidorId = 1
         });
-        Paradas.Add(new Parada
+        await _paradasDatabase.SaveParadaAsync(new Parada
         {
             Numero = 2,
             Cliente = "Abarrotes La Esquina",
             Direccion = "Calle Morelos 45",
-            Estado = "Entregada"
+            Estado = "Entregada",
+            RepartidorId = 1
         });
-        Paradas.Add(new Parada
+        await _paradasDatabase.SaveParadaAsync(new Parada
         {
             Numero = 3,
             Cliente = "Consultorio Dra. Ruiz",
             Direccion = "Blvd. Constitucion 890",
-            Estado = "Pendiente"
+            Estado = "Pendiente",
+            RepartidorId = 1
         });
-        Paradas.Add(new Parada
+        await _paradasDatabase.SaveParadaAsync(new Parada
         {
             Numero = 4,
             Cliente = "Don Panchito Perez",
             Direccion = "Ciudada Universitaria, Sistemas 890",
-            Estado = "Pendiente"
+            Estado = "Pendiente",
+            RepartidorId = 1
         });
-
-        Paradas.Add(new Parada
+        await _paradasDatabase.SaveParadaAsync(new Parada
         {
             Numero = 5,
             Cliente = "Eulalio de la Cruz",
             Direccion = "Colonia 888, Jalisco",
-            Estado = "Entregada"
+            Estado = "Entregada",
+            RepartidorId = 1
         });
-
-        TotalEntregas = Paradas.Count;
-        EntregasCompletadas = Paradas.Count(p => p.Estado == "Entregada");
-
     }
 
     private void FormarSaludo()

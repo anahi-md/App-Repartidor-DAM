@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:UltimaMilla.Repartidor.ViewModels"
+             x:DataType="vm:ParadaDetalleViewModel"
+             x:Class="UltimaMilla.Repartidor.Views.ParadaDetallePage"
+             Title="Detalle de la Parada">
+    
+    <VerticalStackLayout Padding="20" Spacing="16">
+        <Label Text="{Binding Parada.Cliente}" FontSize="24" FontAttributes="Bold" />
+        <Label Text="{Binding Parada.Direccion}" Style="{StaticResource TextoSecundario}" />
+        <Label Text="{Binding Parada.Estado}" FontAttributes="Bold" />
+        <BoxView HeightRequest="1" BackgroundColor="LightGray" Margin="0,8" />
+        <Entry Placeholder="Razón de la falla (solo si vas a marcarla fallida)"
+               Text="{Binding RazonFallo}" />
+        <Label Text="{Binding MensajeEstado}" TextColor="IndianRed" FontSize="13" />
+        <Button Text="Marcar entregada" Command="{Binding MarcarEntregadaCommand}" />
+        <Button Text="Marcar fallida" Command="{Binding MarcarFallidaCommand}"
+                BackgroundColor="IndianRed" />
+        <Button Text="Reintentar Entrega" Command="{Binding ReintentarEntregaCommand}" BackgroundColor="DarkOrange" />
+    </VerticalStackLayout>
+</ContentPage>

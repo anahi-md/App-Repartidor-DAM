@@ -24,7 +24,14 @@ public partial class JornadaPage : ContentPage
     {
         if (sender is VisualElement { BindingContext: Parada parada })
         {
-            await DisplayAlertAsync("Parada", $"Cliente: {parada.Cliente}", "Ok");
+            await Shell.Current.GoToAsync($"{nameof(ParadaDetallePage)}?ParadaId={parada.Id}");
         }
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is JornadaViewModel vm)
+            await vm.RefrescaParadasCommand.ExecuteAsync(null);
     }
 }
